@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     @IBAction func answerButtonTapped(_ sender: UIButton) {
         if(questionNumber < quiz.count){
             updateUI()
-           // answerChecker(answer: sender.currentTitle!)
+            answerChecker(answer: sender.currentTitle!,sender: sender)
             questionNumber += 1
         }
         else {
@@ -71,15 +71,27 @@ class ViewController: UIViewController {
     }
     
     func updateUI(){
-        
         questionLabel.text = quiz[questionNumber].text
-        
+        trueButton.backgroundColor = .clear
+        falseButton.backgroundColor = .clear
         
     }
-    func answerChecker(answer: String){
+    func answerChecker(answer: String,sender: UIButton){
         if(answer == quiz[questionNumber].answer){
-            rightAnswer += 1
-            print("\(rightAnswer)")
+            sender.backgroundColor = UIColor.green
+            sender.layer.cornerRadius = 25
+            sender.setBackgroundImage(UIImage(named: "Rectangle"), for: UIControl.State.selected)
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { Timer in
+                sender.backgroundColor = .clear
+            }
+        }else {
+            sender.backgroundColor = UIColor.red
+            sender.layer.cornerRadius = 25
+            sender.setBackgroundImage(UIImage(named: "Rectangle"), for: UIControl.State.selected)
+            Timer.scheduledTimer(withTimeInterval: 0.5,
+                                 repeats: false) { Timer in
+                sender.backgroundColor = .clear
+            }
         }
     }
     
