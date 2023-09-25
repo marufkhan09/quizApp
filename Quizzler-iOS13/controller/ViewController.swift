@@ -31,8 +31,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func answerButtonTapped(_ sender: UIButton) {
-        
-        if( quizBrain.checkAnswer(answer: sender.currentTitle!)){
+        let userGotIt = quizBrain.checkAnswer(answer: sender.currentTitle!)
+        if( userGotIt){
             sender.backgroundColor = UIColor.green
             sender.layer.cornerRadius = 25
             sender.setBackgroundImage(UIImage(named: "Rectangle"), for: UIControl.State.selected)
@@ -44,6 +44,9 @@ class ViewController: UIViewController {
             sender.setBackgroundImage(UIImage(named: "Rectangle"), for: UIControl.State.selected)
        
         }
+        quizBrain.nextQuestion()
+        
+        Timer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
     }
 
     
