@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var falseButton: UIButton!
     
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var correctAnsCount: UILabel!
     
     var quizBrain = QuizBrain()
 
@@ -28,6 +29,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         questionLabel.text = quizBrain.quiz[quizBrain.questionNumber].text
+        correctAnsCount.text =  "Correct Answer Count: 0"
     }
     
     @IBAction func answerButtonTapped(_ sender: UIButton) {
@@ -36,7 +38,7 @@ class ViewController: UIViewController {
             sender.backgroundColor = UIColor.green
             sender.layer.cornerRadius = 25
             sender.setBackgroundImage(UIImage(named: "Rectangle"), for: UIControl.State.selected)
-        
+            correctAnsCount.text =  "Correct Answer Count: \(quizBrain.answerCount(answer: userGotIt))"
         }
         else {
             sender.backgroundColor = UIColor.red
@@ -46,7 +48,7 @@ class ViewController: UIViewController {
         }
         quizBrain.nextQuestion()
         
-        Timer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
     }
 
     

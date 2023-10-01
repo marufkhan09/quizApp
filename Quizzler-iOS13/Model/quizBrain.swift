@@ -38,14 +38,21 @@ struct QuizBrain {
                       Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")]
     
     var questionNumber = 0
-    func checkAnswer(answer userAnswer: String)-> Bool{
-        
+    var correctAnswer = 0
+    mutating func checkAnswer(answer userAnswer: String)-> Bool{
         if(userAnswer == quiz[questionNumber].answer){
+        
             return true
         }else {
             return false
         }
-        
+    }
+    
+    mutating func answerCount(answer: Bool)->Int{
+        if(true){
+            correctAnswer += 1
+        }
+        return correctAnswer
     }
     
     func getQuestionText()-> String{
@@ -60,6 +67,7 @@ struct QuizBrain {
             questionNumber += 1
         }else {
             questionNumber = 0
+            correctAnswer = 0
         }
     }
 }
